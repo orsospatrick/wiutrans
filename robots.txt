@@ -1,0 +1,3 @@
+Sitemap: https://wiutrans.com/sitemap.xml
+User-Agent: *
+Allow: /
