@@ -5,7 +5,7 @@ $(function() {
     //===== Prealoder
     
     $(window).on('load', function(event) {
-        $('#preloader').delay(500).fadeOut(500);
+        $('.preloader').delay(500).fadeOut(500);
     });
     
     
@@ -14,9 +14,9 @@ $(function() {
     $(window).on('scroll', function (event) {
         var scroll = $(window).scrollTop();
         if (scroll < 20) {
-            $(".header_navbar").removeClass("sticky");
+            $(".navbar-area").removeClass("sticky");
         } else {
-            $(".header_navbar").addClass("sticky");
+            $(".navbar-area").addClass("sticky");
         }
     });
     
@@ -54,72 +54,91 @@ $(function() {
     });
     
     
-    //===== Slick Slider
-
-    function mainSlider() {
-        var BasicSlider = $('.slider-active');
-        BasicSlider.on('init', function (e, slick) {
-            var $firstAnimatingElements = $('.single_slider:first-child').find('[data-animation]');
-            doAnimations($firstAnimatingElements);
-        });
-        BasicSlider.on('beforeChange', function (e, slick, currentSlide, nextSlide) {
-            var $animatingElements = $('.single_slider[data-slick-index="' + nextSlide + '"]').find('[data-animation]');
-            doAnimations($animatingElements);
-        });
-        BasicSlider.slick({
-            autoplay: true,
-            autoplaySpeed: 5000,
-            dots: true,
-            fade: true,
-            arrows: false,
-//            prevArrow: '<span class="prev"><i class="fa fa-arrow-left"></i></span>',
-//            nextArrow: '<span class="next"><i class="fa fa-arrow-right"></i></span>',
-            responsive: [
-                {
-                    breakpoint: 767,
-                    settings: {
-                        arrows: false
-                    }
-                }
-            ]
-        });
-
-        function doAnimations(elements) {
-            var animationEndEvents = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-            elements.each(function () {
-                var $this = $(this);
-                var $animationDelay = $this.data('delay');
-                var $animationType = 'animated ' + $this.data('animation');
-                $this.css({
-                    'animation-delay': $animationDelay,
-                    '-webkit-animation-delay': $animationDelay
-                });
-                $this.addClass($animationType).one(animationEndEvents, function () {
-                    $this.removeClass($animationType);
-                });
-            });
-        }
-    }
-    mainSlider();
+    //===== Counter Up
+    
+    $('.counter').counterUp({
+        delay: 10,
+        time: 3000
+    });
     
     
-    //====== slick testimonial wrapper
+    //===== Slick Project
+    
+    $('.team_active').slick({
+        dots: false,
+        infinite: true,
+        speed: 800,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        arrows: true,
+        centerMode: true,
+        centerPadding: '0',
+        prevArrow: '<span class="prev"><i class="lni lni-chevron-left"></i></span>',
+        nextArrow: '<span class="next"><i class="lni lni-chevron-right"></i></span>',
+        responsive: [
+            {
+              breakpoint: 1400,
+              settings: {
+                slidesToShow: 3,
+              }
+            },
+            {
+              breakpoint: 1200,
+              settings: {
+                slidesToShow: 3,
+              }
+            },
+            {
+              breakpoint: 992,
+              settings: {
+                slidesToShow: 3,
+              }
+            },
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 3,
+              }
+            },
+            {
+              breakpoint: 576,
+              settings: {
+                slidesToShow: 1,
+              }
+            }
+        ]
+    });
+    
+    
+    //===== Slick Testimonial
     
     $('.testimonial_active').slick({
         dots: true,
         infinite: true,
         speed: 800,
         slidesToShow: 1,
-        adaptiveHeight: true,
+        slidesToScroll: 1,
         arrows: false,
-        responsive: [
-            {
-                breakpoint: 576,
-                settings: {
-                    arrows: false
-                }
-            }
-        ]
+        centerMode: true,
+        centerPadding: '0',
+    });
+    
+    
+    //====== Magnific Popup
+    
+    $('.video-popup').magnificPopup({
+        type: 'iframe'
+        // other options
+    });
+    
+    
+    //===== Magnific Popup
+    
+    $('.image-popup').magnificPopup({
+      type: 'image',
+      gallery:{
+        enabled:true
+      }
     });
     
     
