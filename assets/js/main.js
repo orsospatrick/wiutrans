@@ -1,184 +1,176 @@
-$(function() {
-    
-    "use strict";
-    
-    //===== Prealoder
-    
-    $(window).on('load', function(event) {
-        $('.preloader').delay(500).fadeOut(500);
-    });
-    
-    
-    //===== Sticky
+(function () {
+  //===== Preloader
 
-    $(window).on('scroll', function (event) {
-        var scroll = $(window).scrollTop();
-        if (scroll < 20) {
-            $(".navbar-area").removeClass("sticky");
-        } else {
-            $(".navbar-area").addClass("sticky");
-        }
-    });
-    
-    
-    //===== Section Menu Active
+  window.onload = function () {
+    window.setTimeout(fadeout, 500);
+  };
 
-    var scrollLink = $('.page-scroll');
-    // Active link switching
-    $(window).scroll(function () {
-        var scrollbarLocation = $(this).scrollTop();
+  function fadeout() {
+    document.querySelector(".preloader").style.opacity = "0";
+    document.querySelector(".preloader").style.display = "none";
+  }
 
-        scrollLink.each(function () {
+  /*=====================================
+    Sticky
+    ======================================= */
+  window.onscroll = function () {
+    var header_navbar = document.querySelector(".navbar-area");
+    var sticky = header_navbar.offsetTop;
+    var logo = document.querySelector(".navbar-brand img");
 
-            var sectionOffset = $(this.hash).offset().top - 73;
+    if (window.pageYOffset > sticky) {
+      header_navbar.classList.add("sticky");
+      logo.src = "assets/img/logo/logo-2.svg";
+    } else {
+      header_navbar.classList.remove("sticky");
+      logo.src = "assets/img/logo/logo.svg";
+    }
 
-            if (sectionOffset <= scrollbarLocation) {
-                $(this).parent().addClass('active');
-                $(this).parent().siblings().removeClass('active');
-            }
-        });
-    });
-    
-    //===== close navbar-collapse when a  clicked
+    // show or hide the back-top-top button
+    var backToTo = document.querySelector(".scroll-top");
+    if (
+      document.body.scrollTop > 50 ||
+      document.documentElement.scrollTop > 50
+    ) {
+      backToTo.style.display = "flex";
+    } else {
+      backToTo.style.display = "none";
+    }
+  };
 
-    $(".navbar-nav a").on('click', function () {
-        $(".navbar-collapse").removeClass("show");
-    });
+  // for menu scroll
+  var pageLink = document.querySelectorAll(".page-scroll");
 
-    $(".navbar-toggler").on('click', function () {
-        $(this).toggleClass("active");
+  pageLink.forEach((elem) => {
+    elem.addEventListener("click", (e) => {
+      e.preventDefault();
+      document.querySelector(elem.getAttribute("href")).scrollIntoView({
+        behavior: "smooth",
+        offsetTop: 1 - 60,
+      });
     });
+  });
 
-    $(".navbar-nav a").on('click', function () {
-        $(".navbar-toggler").removeClass('active');
-    });
-    
-    
-    //===== Counter Up
-    
-    $('.counter').counterUp({
-        delay: 10,
-        time: 3000
-    });
-    
-    
-    //===== Slick Project
-    
-    $('.team_active').slick({
-        dots: false,
-        infinite: true,
-        speed: 800,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        arrows: true,
-        centerMode: true,
-        centerPadding: '0',
-        prevArrow: '<span class="prev"><i class="lni lni-chevron-left"></i></span>',
-        nextArrow: '<span class="next"><i class="lni lni-chevron-right"></i></span>',
-        responsive: [
-            {
-              breakpoint: 1400,
-              settings: {
-                slidesToShow: 3,
-              }
-            },
-            {
-              breakpoint: 1200,
-              settings: {
-                slidesToShow: 3,
-              }
-            },
-            {
-              breakpoint: 992,
-              settings: {
-                slidesToShow: 3,
-              }
-            },
-            {
-              breakpoint: 768,
-              settings: {
-                slidesToShow: 3,
-              }
-            },
-            {
-              breakpoint: 576,
-              settings: {
-                slidesToShow: 1,
-              }
-            }
-        ]
-    });
-    
-    
-    //===== Slick Testimonial
-    
-    $('.testimonial_active').slick({
-        dots: true,
-        infinite: true,
-        speed: 800,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        centerMode: true,
-        centerPadding: '0',
-    });
-    
-    
-    //====== Magnific Popup
-    
-    $('.video-popup').magnificPopup({
-        type: 'iframe'
-        // other options
-    });
-    
-    
-    //===== Magnific Popup
-    
-    $('.image-popup').magnificPopup({
-      type: 'image',
-      gallery:{
-        enabled:true
+  // section menu active
+  function onScroll(event) {
+    var sections = document.querySelectorAll(".page-scroll");
+    var scrollPos =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop;
+
+    for (var i = 0; i < sections.length; i++) {
+      var currLink = sections[i];
+      var val = currLink.getAttribute("href");
+      var refElement = document.querySelector(val);
+      var scrollTopMinus = scrollPos + 73;
+      if (
+        refElement.offsetTop <= scrollTopMinus &&
+        refElement.offsetTop + refElement.offsetHeight > scrollTopMinus
+      ) {
+        document.querySelector(".page-scroll").classList.remove("active");
+        currLink.classList.add("active");
+      } else {
+        currLink.classList.remove("active");
       }
-    });
-    
-    
-    //===== Back to top
-    
-    // Show or hide the sticky footer button
-    $(window).on('scroll', function(event) {
-        if($(this).scrollTop() > 600){
-            $('.back-to-top').fadeIn(200)
-        } else{
-            $('.back-to-top').fadeOut(200)
-        }
-    });
-    
-    
-    //Animate the scroll to yop
-    $('.back-to-top').on('click', function(event) {
-        event.preventDefault();
-        
-        $('html, body').animate({
-            scrollTop: 0,
-        }, 1500);
-    });
-    
-    
-    //===== 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-});
+    }
+  }
+
+  window.document.addEventListener("scroll", onScroll);
+
+  //===== close navbar-collapse when a  clicked
+  let navbarToggler = document.querySelector(".navbar-toggler");
+  var navbarCollapse = document.querySelector(".navbar-collapse");
+
+  document.querySelectorAll(".page-scroll").forEach((e) =>
+    e.addEventListener("click", () => {
+      navbarToggler.classList.remove("active");
+      navbarCollapse.classList.remove("show");
+    })
+  );
+  navbarToggler.addEventListener("click", function () {
+    navbarToggler.classList.toggle("active");
+  });
+
+  //======== tiny slider
+  var slider = new tns({
+    container: ".testimonial-active",
+    slideBy: "page",
+    autoplay: false,
+    mouseDrag: true,
+    gutter: 0,
+    items: 1,
+    nav: true,
+    controls: true,
+    controlsText: [
+      '<span class="prev"><i class="lni lni-chevron-left"></i></span>',
+      '<span class="next"><i class="lni lni-chevron-right"></i></span>',
+    ],
+    responsive: {
+      0: {
+        controls: false,
+      },
+
+      768: {
+        controls: true,
+      },
+    },
+  });
+
+  //========= glightbox
+  const myGallery = GLightbox({
+    href: "https://www.youtube.com/watch?v=LXb3EKWsInQ&t=23s&ab_channel=Jacob%2BKatieSchwarz",
+    type: "video",
+    source: "youtube", //vimeo, youtube or local
+    width: 900,
+    autoplayVideos: true,
+  });
+
+  // WOW active
+  new WOW().init();
+
+  //====== counter up
+  var cu = new counterUp({
+    start: 0,
+    duration: 2000,
+    intvalues: true,
+    interval: 100,
+    append: " ",
+  });
+  cu.start();
+
+  // ====== date countdown
+
+  // ====== scroll top js
+  function scrollTo(element, to = 0, duration = 1000) {
+    const start = element.scrollTop;
+    const change = to - start;
+    const increment = 20;
+    let currentTime = 0;
+
+    const animateScroll = () => {
+      currentTime += increment;
+
+      const val = Math.easeInOutQuad(currentTime, start, change, duration);
+
+      element.scrollTop = val;
+
+      if (currentTime < duration) {
+        setTimeout(animateScroll, increment);
+      }
+    };
+
+    animateScroll();
+  }
+
+  Math.easeInOutQuad = function (t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) return (c / 2) * t * t + b;
+    t--;
+    return (-c / 2) * (t * (t - 2) - 1) + b;
+  };
+
+  document.querySelector(".scroll-top").onclick = function () {
+    scrollTo(document.documentElement);
+  };
+})();

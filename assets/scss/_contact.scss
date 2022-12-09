@@ -1,0 +1,92 @@
+/* ================ contact css ============ */
+
+.contact-section {
+    background: #282E63;
+    position: relative;
+    z-index: 1;
+
+    .contact-form-wrapper {
+        margin-right: 30px;
+
+        @media #{$md} {
+            margin-right: 0;
+        }
+        @media #{$xs} {
+            margin-right: 0;
+        }
+    }
+
+    form {
+
+        .single-form {
+            margin-bottom: 20px;
+
+            textarea,
+            input {
+                width: 100%;
+                background: $body-bg;
+                border: 1px solid transparent;
+                border-radius: 0px;
+                padding: 15px 25px;
+                color: $white;
+                @include transition(.3s);
+
+                &:focus {
+                    border-color: $white;
+                }
+
+                &::placeholder {
+                    opacity: 1;
+                    color: $white;
+                }
+            }
+            textarea {
+                resize: none;
+            }
+        }
+
+        .main-btn {
+            padding: 17px 35px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+    }
+
+    .contact-right {
+
+        @media #{$md} {
+            margin-top: 50px;
+        }
+        @media #{$xs} {
+            margin-top: 50px;
+        }
+
+        .single-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+
+            .icon {
+                max-width: 60px;
+                width: 100%;
+                height: 60px;
+                border-radius: 50%;
+                background: $body-bg;
+                color: $white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+                margin-right: 30px;
+            }
+
+            .content {
+                p {
+                    font-size: 16px;
+                    line-height: 30px;
+                }
+            }
+        }
+    }
+
+}
