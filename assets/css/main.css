@@ -2492,3 +2492,104 @@ p {
 .pb-225 {
   padding-bottom: 225px;
 }
+
+/* ===== Floating contact buttons ===== */
+.float-btn {
+  position: fixed;
+  bottom: 20px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 56px;
+  padding: 0 20px 0 16px;
+  border-radius: 28px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.float-btn:hover,
+.float-btn:focus {
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.float-btn svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.float-whatsapp {
+  left: 20px;
+  background: #25d366;
+}
+
+.float-call {
+  right: 20px;
+  background: #4e6ef1;
+}
+
+.float-call::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid #4e6ef1;
+  animation: float-pulse 2s ease-out infinite;
+}
+
+@keyframes float-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+/* keep scroll-top above the call button */
+.scroll-top {
+  bottom: 90px;
+  right: 25px;
+}
+
+@media (max-width: 575px) {
+  .float-btn {
+    bottom: max(16px, env(safe-area-inset-bottom));
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .float-btn span {
+    display: none;
+  }
+
+  .float-whatsapp {
+    left: 16px;
+  }
+
+  .float-call {
+    right: 16px;
+  }
+
+  .float-btn svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .scroll-top {
+    bottom: 92px;
+    right: 23px;
+  }
+}
